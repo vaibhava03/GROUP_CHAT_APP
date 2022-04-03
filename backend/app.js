@@ -13,8 +13,8 @@ const path = require('path');
 const sequelize =require ('./util/database');
   const User =require ('./models/user');
 
-  const cors =req('cors');
-  const helmet =req( 'helmet');
+  const cors =require('cors');
+  const helmet =require( 'helmet');
   const loginRoutes =require('./routes/login');
 
   app.use(helmet());
