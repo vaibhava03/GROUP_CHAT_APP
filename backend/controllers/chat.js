@@ -1,6 +1,6 @@
 const User=require('../models/User');
 const Message=require('../models/Message');
-
+const jwt=require('jsonwebtoken');
 function parseJwt(token) {
     var base64Payload = token.split('.')[1];
     let payload = Buffer.from(base64Payload, 'base64');
