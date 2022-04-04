@@ -17,3 +17,21 @@ exports.PostMessages=(req, res) =>{
     })
     .catch(err => console.log(err));
 }
+const data=[];
+Message.findAll()
+.then(res =>{
+    res.forEach(msg => {
+        User.findByPk(msg.userId)
+        .then(user =>{
+            const obj={
+                name:user.name,
+                message:msg,
+                token:jwt.sign({ id: user.id }, "secret")
+            }
+            data.push(obj);
+        })
+    });
+})
+exports.GetMessages=(req, res) =>{
+  res.json(data);
+}
