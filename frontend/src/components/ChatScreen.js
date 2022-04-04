@@ -7,11 +7,16 @@ import { useState } from 'react';
 function ChatScreen(){
     const token=localStorage.getItem('token');
     const [data,setData]=useState();
+    
 
-axios.get('http://localhost:4000/getmessages')
+setInterval( () =>
+{
+    axios.get('http://localhost:4000/getmessages')
 .then(res =>{
 setData(res.data);
 }).catch(err => console.log(err));
+},1000);
+
 
 function getUsers(data) {
 data.forEach(element => {
@@ -24,9 +29,11 @@ if(element.message==='have Joined')
     </div>
     }
     else {
-    return <div>
+    return (
+    <div>
     <h4>{element.name} {element.message}</h4>
-</div>
+    </div>
+    );
     }
 } 
 else {
@@ -48,7 +55,7 @@ function postMessages(e){
             'Authorization':token
         }
     }
-    axios.post('http://localhost:4000/getmessages')
+    axios.post('http://localhost:4000/getmessages',myObj,head)
     .then(res =>{
         console.log(res.status);
     }).catch(err =>console.log(err));
